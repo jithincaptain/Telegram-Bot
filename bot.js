@@ -15,6 +15,12 @@ if (process.env.NODE_ENV === 'production') {
 } else {
    bot = new TelegramBot(token, { polling: true });
 }
+bot.on('message', (msg) => {
+    console.log(msg);
+    const chatId = msg.chat.id;
+    // send a message to the chat acknowledging receipt of their message
+    bot.sendMessage(chatId, 'Received your message from server');
+});
 
 // Matches "/word whatever"
 bot.onText(/\/word (.+)/, (msg, match) => {
@@ -32,6 +38,7 @@ bot.onText(/\/word (.+)/, (msg, match) => {
       }
     })
     .then(response => {
+        console.log(response)
       const parsedHtml = parser(response.data);
       bot.sendMessage(chatId, parsedHtml, { parse_mode: 'HTML' });
     })
