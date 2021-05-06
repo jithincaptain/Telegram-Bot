@@ -27,15 +27,17 @@ bot.onText(/\/word (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
   const word = match[1];
   axios
-    .get('https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=673612&date=07-05-2021'/*, {
-      params: {
-        fields: 'definitions',
-        strictMatch: 'false'
-      },
-      headers: {
-        app_id: process.env.OXFORD_APP_ID,
-        app_key: process.env.OXFORD_APP_KEY
-      }}*/
+    .get('https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=673612&date=07-05-2021',
+        {
+            headers:{
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+                'cache-control':'no-cache',
+                'scheme':'https',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            withCredentials: true
+        }
+
     ).then(response => {
         console.log(response)
       const parsedHtml = parser(response.data);
