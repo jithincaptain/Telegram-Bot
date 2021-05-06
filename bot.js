@@ -27,7 +27,7 @@ bot.onText(/\/word (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
   const word = match[1];
   axios
-    .get('https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?673612&date=07-05-2021'/*, {
+    .get('https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=673612&date=07-05-2021'/*, {
       params: {
         fields: 'definitions',
         strictMatch: 'false'
