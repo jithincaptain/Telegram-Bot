@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const parser = require('./parser.js');
 
 require('dotenv').config();
-
+console.log("working");
 const token = process.env.TELEGRAM_TOKEN;
 let bot;
 
