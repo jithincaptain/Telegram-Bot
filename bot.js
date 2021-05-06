@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const parser = require('./parser.js');
 
 require('dotenv').config();
-console.log("working");
+
 const token = process.env.TELEGRAM_TOKEN;
 let bot;
 
@@ -27,7 +27,7 @@ bot.onText(/\/word (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
   const word = match[1];
   axios
-    .get(`${process.env.OXFORD_API_URL}/entries/en-gb/${word}`, {
+    .get('https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?673612&date=07-05-2021'/*, {
       params: {
         fields: 'definitions',
         strictMatch: 'false'
@@ -35,16 +35,17 @@ bot.onText(/\/word (.+)/, (msg, match) => {
       headers: {
         app_id: process.env.OXFORD_APP_ID,
         app_key: process.env.OXFORD_APP_KEY
-      }
-    })
-    .then(response => {
+      }}*/
+    ).then(response => {
         console.log(response)
       const parsedHtml = parser(response.data);
-      bot.sendMessage(chatId, parsedHtml, { parse_mode: 'HTML' });
+     // bot.sendMessage(chatId, parsedHtml, { parse_mode: 'HTML' });
     })
     .catch(error => {
-      const errorText = error.response.status === 404 ? `No definition found for the word: <b>${word}</b>` : `<b>An error occured, please try again later</b>`;
-      bot.sendMessage(chatId, errorText, { parse_mode:'HTML'})
+        console.log(error);
+     // const errorText = error.response.status === 404 ? `No definition found for the word: <b>${word}</b>` : `<b>An error occured, please try again later</b>`;
+
+      // bot.sendMessage(chatId, errorText, { parse_mode:'HTML'})
     });
 });
 
